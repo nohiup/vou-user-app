@@ -1,0 +1,3 @@
+class Value{
+  Value._();
+}
