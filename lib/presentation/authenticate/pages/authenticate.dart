@@ -6,6 +6,7 @@ import 'package:vou_user/di/service_locator.dart';
 import 'package:vou_user/presentation/authenticate/stores/authenticate_store.dart';
 import 'package:vou_user/presentation/authenticate/stores/login_store/login_store.dart';
 import 'package:vou_user/presentation/authenticate/stores/register_store/register_store.dart';
+import 'package:vou_user/utils/routes/routes.dart';
 
 
 class AuthenticateScreen extends StatefulWidget {
@@ -391,6 +392,9 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
           _emailController.text, _passwordController.text);
       if (isLogged) {
         print('Success');
+        if (mounted){
+          Navigator.pushReplacementNamed(context, Routes.home);
+        }
       }
     } else {
       print('Failed');
@@ -412,9 +416,9 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
           _usernameController.text);
       if (isRegistered) {
         print('Logging in');
-        //Switch screen
-
-        // Navigator.of(context).pushReplacementNamed(Routes.chat);
+        if (mounted){
+          Navigator.pushReplacementNamed(context, Routes.home);
+        }
       }
     } else {
       print('Failed register');
