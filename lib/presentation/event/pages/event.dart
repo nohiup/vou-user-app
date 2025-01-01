@@ -14,10 +14,9 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await eventStore.getEvents();
     });

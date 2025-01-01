@@ -4,6 +4,7 @@ class Profile{
   final String avatarUrl;
   final String email;
   final String phone;
+  final DateTime birthday;
   final bool isMale;
   final String? facebookUrl;
 
@@ -14,6 +15,7 @@ class Profile{
     required this.email,
     required this.phone,
     required this.isMale,
+    required this.birthday,
     required this.facebookUrl
   });
 

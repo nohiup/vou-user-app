@@ -4,7 +4,8 @@ import 'package:vou_user/presentation/authenticate/stores/authenticate_store.dar
 import 'package:vou_user/presentation/authenticate/stores/login_store/login_store.dart';
 import 'package:vou_user/presentation/authenticate/stores/register_store/register_store.dart';
 import 'package:vou_user/presentation/event/stores/event_store.dart';
-import 'package:vou_user/presentation/game/stores/timer_store.dart';
+import 'package:vou_user/presentation/game/stores/quiz_store/timer_store.dart';
+import 'package:vou_user/presentation/game/stores/shake_store/shake_store.dart';
 import 'package:vou_user/presentation/profile/stores/profile_store.dart';
 import 'package:vou_user/presentation/voucher/stores/voucher_store.dart';
 
@@ -36,6 +37,10 @@ class StoreModule {
 
     getIt.registerSingleton<TimerStore>(
       TimerStore()
+    );
+
+    getIt.registerSingleton<ShakeStore>(
+      ShakeStore()
     );
   }
 }

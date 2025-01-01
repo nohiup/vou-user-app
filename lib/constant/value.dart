@@ -84,7 +84,8 @@ class Value{
     email: 'johndoe@example.com',
     phone: '1234567890',
     isMale: true,
-    facebookUrl: null,
+    facebookUrl: "https://www.facebook.com/",
+    birthday: DateTime(2017, 9, 7),
   );
 
   static Profile nullProfile = Profile(
@@ -94,6 +95,7 @@ class Value{
     email: '',
     phone: '',
     isMale: true,
+    birthday: DateTime(2017, 9, 7),
     facebookUrl: null,
   );
 

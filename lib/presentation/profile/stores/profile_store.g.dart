@@ -49,6 +49,15 @@ mixin _$ProfileStore on _ProfileStore, Store {
     return _$getProfileAsyncAction.run(() => super.getProfile());
   }
 
+  late final _$updateProfileAsyncAction =
+      AsyncAction('_ProfileStore.updateProfile', context: context);
+
+  @override
+  Future<void> updateProfile(Profile newProfile) {
+    return _$updateProfileAsyncAction
+        .run(() => super.updateProfile(newProfile));
+  }
+
   @override
   String toString() {
     return '''

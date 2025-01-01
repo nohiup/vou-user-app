@@ -30,6 +30,9 @@ class EventTile extends StatelessWidget {
         if (gameName == 'HQ Trivia'){
           Navigator.of(context).pushNamed(Routes.quiz);
         }
+        if (gameName == 'Trade'){
+          Navigator.of(context).pushNamed(Routes.shake);
+        }
       },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

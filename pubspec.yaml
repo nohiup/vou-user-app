@@ -38,7 +38,8 @@ dependencies:
   loading_animation_widget: ^1.3.0
   intl: ^0.20.1
   flutter_svg: ^2.0.16
-
+  sensors_plus: ^6.1.1
+  social_sharing_plus: ^1.2.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -66,7 +67,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - assets/egg_whole.jpg
+    - assets/egg_cracked.jpg
+    - assets/egg_broken.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

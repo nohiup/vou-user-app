@@ -23,4 +23,13 @@ abstract class _ProfileStore with Store{
 
     isLoading = false;
   }
+
+  @action
+  Future<void> updateProfile(Profile newProfile) async{
+    isLoading = true;
+    await Future.delayed(const Duration(seconds: 1));
+
+    profile = newProfile;
+    isLoading = false;
+  }
 }

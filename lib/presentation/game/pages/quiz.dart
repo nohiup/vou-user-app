@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:vou_user/presentation/game/stores/timer_store.dart';
+import 'package:vou_user/presentation/game/stores/quiz_store/timer_store.dart';
 
 import '../../../di/service_locator.dart';
 

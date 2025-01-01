@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:vou_user/constant/useful_function.dart';
 import 'package:vou_user/di/service_locator.dart';
 import 'package:vou_user/presentation/profile/stores/profile_store.dart';
@@ -28,14 +29,13 @@ class _ProfilePageState extends State<ProfilePage> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-      await profileStore.getProfile();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) async{
+    //   await profileStore.getProfile();
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (profileStore.profile == null) print("NULL ROI ");
     return Observer(builder: (context){
       return profileStore.isLoading?
       UsefulFunction.buildProgressIndicator() :
@@ -47,13 +47,13 @@ class _ProfilePageState extends State<ProfilePage> {
             // Avatar
             CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(profileStore.profile!.avatarUrl),
+              backgroundImage: NetworkImage(profileStore.profile.avatarUrl),
             ),
             const SizedBox(height: 16),
 
             // Username
             Text(
-              profileStore.profile!.username,
+              profileStore.profile.username,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Icon(Icons.phone, color: Colors.blue),
                 const SizedBox(width: 8),
                 Text(
-                  profileStore.profile!.phone,
+                  profileStore.profile.phone,
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -82,7 +82,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Icon(Icons.person, color: Colors.purple),
                 const SizedBox(width: 8),
                 Text(
-                  profileStore.profile!.isMale ? 'Male' : 'Female',
+                  profileStore.profile.isMale ? 'Male' : 'Female',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Birthday
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.cake, color: Colors.pink),
+                const SizedBox(width: 8),
+                Text(
+                  DateFormat('dd/MM/yyyy').format(profileStore.profile.birthday), // Chuỗi ngày sinh
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -90,8 +104,8 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 16),
 
             // Facebook URL (optional)
-            if (profileStore.profile!.facebookUrl != null &&
-                profileStore.profile!.facebookUrl!.isNotEmpty)
+            if (profileStore.profile.facebookUrl != null &&
+                profileStore.profile.facebookUrl!.isNotEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -102,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       // Action khi bấm vào URL
                     },
                     child: Text(
-                      profileStore.profile!.facebookUrl!,
+                      profileStore.profile.facebookUrl!,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.blue,
@@ -112,6 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
+
           ],
         ),
       );
