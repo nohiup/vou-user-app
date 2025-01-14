@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
+
       await profileStore.getProfile();
     });
   }
@@ -47,13 +48,13 @@ class _ProfilePageState extends State<ProfilePage> {
             // Avatar
             CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(profileStore.profile.avatarUrl),
+              backgroundImage: NetworkImage(profileStore.profile.avatar??""),
             ),
             const SizedBox(height: 16),
 
             // Username
             Text(
-              profileStore.profile.username,
+              profileStore.profile.name??"",
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -68,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Icon(Icons.phone, color: Colors.blue),
                 const SizedBox(width: 8),
                 Text(
-                  profileStore.profile.phone,
+                  profileStore.profile.phone??"",
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -82,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Icon(Icons.person, color: Colors.purple),
                 const SizedBox(width: 8),
                 Text(
-                  profileStore.profile.isMale ? 'Male' : 'Female',
+                  profileStore.profile.gender! ? 'Male' : 'Female',
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -96,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Icon(Icons.cake, color: Colors.pink),
                 const SizedBox(width: 8),
                 Text(
-                  DateFormat('dd/MM/yyyy').format(profileStore.profile.birthday), // Chuỗi ngày sinh
+                  DateFormat('dd/MM/yyyy').format(profileStore.profile.dob??DateTime.now()), // Chuỗi ngày sinh
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -104,8 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 16),
 
             // Facebook URL (optional)
-            if (profileStore.profile.facebookUrl != null &&
-                profileStore.profile.facebookUrl!.isNotEmpty)
+            if (profileStore.profile.facebook != null &&
+                profileStore.profile.facebook!.isNotEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -116,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       // Action khi bấm vào URL
                     },
                     child: Text(
-                      profileStore.profile.facebookUrl!,
+                      profileStore.profile.facebook!,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.blue,

@@ -27,11 +27,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   @override
   void initState() {
     super.initState();
-    usernameController = TextEditingController(text: widget.profile.username);
+    usernameController = TextEditingController(text: widget.profile.name);
     phoneController = TextEditingController(text: widget.profile.phone);
-    facebookUrlController = TextEditingController(text: widget.profile.facebookUrl ?? "");
-    isMale = widget.profile.isMale;
-    selectedBirthday = widget.profile.birthday;
+    facebookUrlController = TextEditingController(text: widget.profile.facebook ?? "");
+    isMale = widget.profile.gender!;
+    selectedBirthday = widget.profile.dob!;
   }
 
   @override
@@ -146,13 +146,13 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
             Navigator.of(context).pop();
             Profile newProfile = Profile(
                 id:  widget.profile.id,
-                username: usernameController.text,
-                avatarUrl: widget.profile.avatarUrl,
+                name: usernameController.text,
+                avatar: widget.profile.avatar,
                 email: widget.profile.email,
                 phone: phoneController.text,
-                isMale: isMale,
-                birthday: selectedBirthday,
-                facebookUrl: facebookUrlController.text);
+                gender: isMale,
+                dob: selectedBirthday,
+                facebook: facebookUrlController.text);
             await profileStore.updateProfile(newProfile);
           },
           child: const Text("Save"),

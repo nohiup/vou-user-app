@@ -98,7 +98,7 @@ abstract class _RegisterStore with Store{
         headers: headers);
 
     if (response.statusCode == 200 ){
-      var json = jsonDecode(response.stream.toString());
+      Map<String, dynamic> json = jsonDecode(await response.stream.bytesToString());
       Value.userId = json['id'];
       isLoading = false;
       return true;

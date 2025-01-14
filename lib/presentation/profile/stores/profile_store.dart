@@ -21,23 +21,34 @@ abstract class _ProfileStore with Store{
   //Action
   @action
   Future<void> getProfile() async{
+    isLoading = true;
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': Value.token
+      'Authorization': 'Bearer ${Value.token}'
     };
 
     var body = {
       "role": "user",
     };
-    //TODO: REGISTER IMPLEMENT
+
     var response = await rest.getWithBody(
         "/api/users/${Value.userId}/profile",
         body: body,
         headers: headers);
-
+    print("${response.statusCode}: ${Value.token}");
     if (response.statusCode == 200 ){
+      String res = await response.stream.bytesToString();
+
+      print(res);
+      Profile fetched = Profile.fromJson(jsonDecode(res));
+      if (fetched.name == null) {
+        profile = Value.nullProfile;
+      }
+      else {
+        profile = fetched;
+      }
+
       isLoading = false;
-      //TODO: Convert response.stream.toString() to Profile, you can change model attrs
       return;
 
     } else {

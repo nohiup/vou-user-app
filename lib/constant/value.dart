@@ -79,24 +79,24 @@ class Value{
 
   static Profile sampleProfile = Profile(
     id: '123',
-    username: 'johndoe',
-    avatarUrl: 'https://placehold.co/400x400/png',
+    name: 'johndoe',
+    avatar: 'https://placehold.co/400x400/png',
     email: 'johndoe@example.com',
     phone: '1234567890',
-    isMale: true,
-    facebookUrl: "https://www.facebook.com/",
-    birthday: DateTime(2017, 9, 7),
+    gender: true,
+    facebook: "https://www.facebook.com/",
+    dob: DateTime(2017, 9, 7),
   );
 
   static Profile nullProfile = Profile(
     id: '00',
-    username: 'Unknown',
-    avatarUrl: 'https://placehold.co/400x400/png',
+    name: 'Unknown',
+    avatar: 'https://placehold.co/400x400/png',
     email: '',
     phone: '',
-    isMale: true,
-    birthday: DateTime(2017, 9, 7),
-    facebookUrl: null,
+    gender: true,
+    dob: DateTime(2017, 9, 7),
+    facebook: null,
   );
 
   static List<Voucher> vouchers = [
@@ -154,6 +154,6 @@ class Value{
 
   static String baseUrl = "http://localhost:8080";
   static String token = "";
-  static String userId = "";
+  static String userId = "3685759a-aba2-428d-8adb-6a79b6c8753b";
   static String userEmail = "";
 }

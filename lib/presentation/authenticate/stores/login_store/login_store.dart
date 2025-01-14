@@ -77,8 +77,9 @@ abstract class _LoginStore with Store{
 
     if (response.statusCode == 200 ){
       isLoading = false;
-      var data = jsonDecode(response.stream.toString());
+      var data = jsonDecode(await response.stream.bytesToString());
       Value.token = data['token'];
+      print(Value.token);
       return true;
 
     } else {

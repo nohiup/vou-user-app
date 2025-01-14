@@ -28,7 +28,7 @@ abstract class _EventStore with Store{
 
     //TODO: REGISTER IMPLEMENT
     var response = await rest.get(
-        "/api/events",
+        "/api/events/all",
         headers: headers);
 
     if (response.statusCode == 200 ){
