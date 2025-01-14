@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:mobx/mobx.dart';
+import 'package:vou_user/constant/value.dart';
+import 'package:vou_user/core/api/rest_client.dart';
 
 part 'login_store.g.dart';
 class LoginStore = _LoginStore with _$LoginStore;
@@ -48,6 +52,8 @@ abstract class _LoginStore with Store{
     passwordError = null;
   }
 
+
+  final RestClient rest = RestClient(Value.baseUrl);
   //Main act:-------------------------------------------------------------------
   @action
   Future<bool> login(String email, String password) async{
@@ -55,10 +61,30 @@ abstract class _LoginStore with Store{
     errorMessage = null;
 
     //TODO: LOGIN IMPLEMENT
+    var headers = {
+      'Content-Type': 'application/json'
+    };
 
-    isLoading = false;
-    //Default true = login
-    return true;
+    var body = {
+      "email": email,
+      "password": password,
+    };
+    //TODO: REGISTER IMPLEMENT
+    var response = await rest.post(
+        "/api/auth/login",
+        body: body,
+        headers: headers);
+
+    if (response.statusCode == 200 ){
+      isLoading = false;
+      var data = jsonDecode(response.stream.toString());
+      Value.token = data['token'];
+      return true;
+
+    } else {
+      isLoading = false;
+      return false;
+    }
   }
 
   // general methods:-----------------------------------------------------------

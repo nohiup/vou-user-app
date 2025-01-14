@@ -19,7 +19,7 @@ class Value{
       voucherCount: 50,
       startTime: DateTime(2024, 12, 1, 9, 0),
       endTime: DateTime(2024, 12, 2, 23, 59),
-      brandName: "TechWorld",
+      brandName: "TechWorld", id: 'cso202',
     ),
     Event(
       name: "Christmas Special",
@@ -28,7 +28,7 @@ class Value{
       voucherCount: 30,
       startTime: DateTime(2024, 12, 20, 10, 0),
       endTime: DateTime(2024, 12, 25, 20, 0),
-      brandName: "Holiday Shop",
+      brandName: "Holiday Shop", id: 'cs0112',
     ),
     Event(
       name: "New Year Bonanza",
@@ -37,7 +37,7 @@ class Value{
       voucherCount: 100,
       startTime: DateTime(2024, 12, 31, 18, 0),
       endTime: DateTime(2025, 1, 1, 23, 59),
-      brandName: "Yearly Deals",
+      brandName: "Yearly Deals", id: 'cs01',
     ),
     Event(
       name: "Valentine's Day Offer",
@@ -46,7 +46,7 @@ class Value{
       voucherCount: 20,
       startTime: DateTime(2025, 2, 10, 8, 0),
       endTime: DateTime(2025, 2, 14, 22, 0),
-      brandName: "LoveMart",
+      brandName: "LoveMart", id: 'cs02',
     ),
     Event(
       name: "Summer Festival",
@@ -55,7 +55,7 @@ class Value{
       voucherCount: 75,
       startTime: DateTime(2025, 6, 1, 12, 0),
       endTime: DateTime(2025, 6, 30, 23, 59),
-      brandName: "FunFair",
+      brandName: "FunFair", id: 'cs0023',
     ),
   ];
 
@@ -108,7 +108,7 @@ class Value{
       value: "50.000 VND",
       description: "Giảm giá 50.000 VND cho đơn hàng trên 500.000 VND.",
       expiredTime: DateTime.now().add(const Duration(days: 10)),
-      status: "Valid",
+      status: "Valid", quantity: 3,
     ),
     Voucher(
       id: "2",
@@ -118,7 +118,7 @@ class Value{
       value: "20%",
       description: "Giảm 20% cho tất cả các sản phẩm vào dịp Tết.",
       expiredTime: DateTime.now().add(const Duration(days: 5)),
-      status: "Valid",
+      status: "Valid", quantity: 2,
     ),
     Voucher(
       id: "3",
@@ -128,7 +128,7 @@ class Value{
       value: "Free Shipping",
       description: "Miễn phí vận chuyển cho mọi đơn hàng trong tháng 1.",
       expiredTime: DateTime.now().subtract(const Duration(days: 1)),
-      status: "Expired",
+      status: "Expired", quantity: 4,
     ),
     Voucher(
       id: "4",
@@ -138,7 +138,7 @@ class Value{
       value: "100.000 VND",
       description: "Giảm 100.000 VND cho đơn hàng từ 1.000.000 VND.",
       expiredTime: DateTime.now().add(const Duration(days: 30)),
-      status: "Valid",
+      status: "Valid", quantity: 3,
     ),
     Voucher(
       id: "5",
@@ -148,9 +148,12 @@ class Value{
       value: "10%",
       description: "Giảm 10% cho khách hàng thân thiết.",
       expiredTime: DateTime.now().subtract(const Duration(days: 7)),
-      status: "Expired",
+      status: "Expired", quantity: 1,
     ),
   ];
 
   static String baseUrl = "http://localhost:8080";
+  static String token = "";
+  static String userId = "";
+  static String userEmail = "";
 }

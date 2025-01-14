@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mobx/mobx.dart';
 import 'package:vou_user/constant/value.dart';
 import 'package:vou_user/core/api/rest_client.dart';
@@ -96,6 +98,8 @@ abstract class _RegisterStore with Store{
         headers: headers);
 
     if (response.statusCode == 200 ){
+      var json = jsonDecode(response.stream.toString());
+      Value.userId = json['id'];
       isLoading = false;
       return true;
     } else {

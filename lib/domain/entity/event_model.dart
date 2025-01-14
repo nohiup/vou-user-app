@@ -1,4 +1,5 @@
 class Event{
+  final String id;
   final String name;
   final String? imgUrl;
   final int voucherCount;
@@ -7,6 +8,7 @@ class Event{
   final String? brandName;
 
   Event({
+    required this.id,
     required this.name,
     required this.imgUrl,
     required this.voucherCount,

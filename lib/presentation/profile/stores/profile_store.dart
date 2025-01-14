@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:mobx/mobx.dart';
 import 'package:vou_user/constant/value.dart';
 import 'package:vou_user/domain/entity/profile_model.dart';
+
+import '../../../core/api/rest_client.dart';
 
 part 'profile_store.g.dart';
 class ProfileStore = _ProfileStore with _$ProfileStore;
@@ -13,23 +17,62 @@ abstract class _ProfileStore with Store{
   @observable
   bool isLoading = false;
 
+  final RestClient rest = RestClient(Value.baseUrl);
   //Action
   @action
   Future<void> getProfile() async{
-    isLoading = true;
-    await Future.delayed(const Duration(seconds: 1));
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': Value.token
+    };
 
-    profile = Value.sampleProfile;
+    var body = {
+      "role": "user",
+    };
+    //TODO: REGISTER IMPLEMENT
+    var response = await rest.getWithBody(
+        "/api/users/${Value.userId}/profile",
+        body: body,
+        headers: headers);
 
-    isLoading = false;
+    if (response.statusCode == 200 ){
+      isLoading = false;
+      //TODO: Convert response.stream.toString() to Profile, you can change model attrs
+      return;
+
+    } else {
+      profile = Value.nullProfile;
+      isLoading = false;
+      return;
+    }
   }
 
   @action
   Future<void> updateProfile(Profile newProfile) async{
-    isLoading = true;
-    await Future.delayed(const Duration(seconds: 1));
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': Value.token
+    };
 
-    profile = newProfile;
-    isLoading = false;
+    //TODO: update user body insert here. (idk what params to ins). User newProfile
+    var body = {
+      "role": "user", //Temporary text holder
+    };
+    var response = await rest.put(
+        "/api/users/${Value.userId}/profile",
+        body: body,
+        headers: headers);
+
+    if (response.statusCode == 200 ){
+      isLoading = false;
+      profile = newProfile;
+      //TODO: Check response if necessary
+      return;
+
+    } else {
+      profile = Value.nullProfile;
+      isLoading = false;
+      return;
+    }
   }
 }

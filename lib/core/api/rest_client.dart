@@ -17,6 +17,26 @@ class RestClient{
     return response;
   }
 
+  ///GET with Body (Not standard HTTP practice, use with caution)
+  Future<http.StreamedResponse> getWithBody(
+      String endpoint, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? body,
+      }) async {
+    var request = http.Request('GET', Uri.parse('$baseUrl$endpoint'));
+    if (headers != null) {
+      request.headers.addAll(headers);
+    }
+
+    // Encode the body as JSON and attach to the GET request
+    if (body != null) {
+      request.body = jsonEncode(body);
+    }
+
+    final http.StreamedResponse response = await request.send();
+    return response;
+  }
+
   ///POST
   Future<http.StreamedResponse> post(String endpoint,
       {Map<String, String>? headers, Map<String, dynamic>? body}) async {

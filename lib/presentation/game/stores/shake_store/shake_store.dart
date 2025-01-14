@@ -1,4 +1,8 @@
 import 'package:mobx/mobx.dart';
+import 'package:vou_user/core/api/rest_client.dart';
+import 'package:vou_user/domain/entity/event_participant.dart';
+
+import '../../../../constant/value.dart';
 
 part 'shake_store.g.dart';
 
@@ -15,10 +19,22 @@ abstract class _ShakeStore with Store {
   bool isGameStarted = false;
 
   @observable
+  EventParticipants? currentEp;
+
+  @observable
   int playCount = 2; // Số lượt chơi
 
   final double shakeThresholdStage1 = 1500.0;
   final double shakeThresholdStage2 = 3000.0;
+
+  @observable
+  String? eventId;
+
+
+  @action
+  void setEventId(String eventId){
+    this.eventId = eventId;
+  }
 
   @action
   void startGame() {
@@ -51,5 +67,27 @@ abstract class _ShakeStore with Store {
     } else if (shakeForce >= shakeThresholdStage1 && stage < 1) {
       stage = 1;
     }
+  }
+
+  final RestClient rest = RestClient(Value.baseUrl);
+  @action
+  Future<void> getParticipantData() async{
+    //TODO: Impl.
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': Value.token
+    };
+
+    //Todo: somehow get user email for global class variable
+    var response = await rest.get(
+      "/api/userVouchers?email=${Value.userEmail}&eventId=${eventId!}",
+      headers: headers
+    );
+
+    //TODO: convert to eventParticipants.
+
+    //....
+    playCount = currentEp!.playerCredit;
+
   }
 }
