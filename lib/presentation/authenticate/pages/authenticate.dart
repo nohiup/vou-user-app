@@ -409,6 +409,7 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
     registerStore.setUsernameError(_usernameController.text);
 
     if (registerStore.isInputValid()) {
+      String email = _emailController.text;
       //call API register
       bool isRegistered = await registerStore.register(
           _emailController.text,
@@ -417,7 +418,40 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
       if (isRegistered) {
         print('Logging in');
         if (mounted){
-          Navigator.pushReplacementNamed(context, Routes.home);
+          showDialog(context: context, builder: (_){
+            TextEditingController otpController = TextEditingController();
+            return AlertDialog(
+              title: const Text("Enter OTP sent"),
+              content: TextFormField(
+                controller: otpController,
+              ),
+              actions: [
+                TextButton(onPressed: () async{
+                  String otp = otpController.text;
+                  bool isCorrect = await registerStore.verify(email, otp);
+                  if (isCorrect) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Verify successfully"),
+                        duration: Duration(seconds: 2),)
+                    );
+                    }
+                  else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Verify failed, please try again"),
+                          duration: Duration(seconds: 2),)
+                    );
+                  }
+                  Navigator.of(context).pop();
+                  }, child: const Text("OK")),
+                TextButton(onPressed: (){
+                  Navigator.of(context).pop();
+                }, child: const Text("Cancel"))
+              ],
+            );
+          });
+          // Navigator.pushReplacementNamed(context, Routes.home);
         }
       }
     } else {

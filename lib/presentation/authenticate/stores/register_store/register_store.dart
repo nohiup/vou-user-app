@@ -1,4 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:vou_user/constant/value.dart';
+import 'package:vou_user/core/api/rest_client.dart';
 
 part 'register_store.g.dart';
 class RegisterStore = _RegisterStore with _$RegisterStore;
@@ -28,6 +30,8 @@ abstract class _RegisterStore with Store{
   String? usernameError;
 
   late List<ReactionDisposer> _disposers;
+  
+  final RestClient rest = RestClient(Value.baseUrl);
 
   //Actions:--------------------------------------------------------------------
   @action
@@ -75,11 +79,59 @@ abstract class _RegisterStore with Store{
       String email, String password, String username) async{
     isLoading = true;
     errorMessage = null;
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+
+    var body = {
+      "email": email,
+      "password": password,
+      "username": username,
+      "role" : "user"
+    };
     //TODO: REGISTER IMPLEMENT
+    var response = await rest.post(
+        "/api/auth/register",
+        body: body,
+        headers: headers);
 
-    isLoading = false;
+    if (response.statusCode == 200 ){
+      isLoading = false;
+      return true;
+    } else {
+      isLoading = false;
+      return false;
+    }
+  }
 
-    return true;
+  @action
+  Future<bool> verify(String email, String otp) async{
+    isLoading = true;
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+
+    var body = {
+      "email": email,
+      "otp": otp,
+    };
+
+    var response = await rest.post(
+      "/api/auth/verify",
+      headers: headers,
+      body: body
+    );
+
+    if (response.statusCode == 200) {
+      isLoading = false;
+      return true;
+    }
+    else {
+      isLoading = false;
+      return true;
+    }
+
+
   }
 
   // general methods:-----------------------------------------------------------

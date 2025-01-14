@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vou_user/di/service_locator.dart';
+import 'package:vou_user/presentation/game/stores/quiz_store/timer_store.dart';
 import 'package:vou_user/utils/routes/routes.dart'; // Thư viện định dạng thời gian
 
 class EventTile extends StatelessWidget {
@@ -24,13 +26,24 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd/MM/yyyy-HH:mm');
+    final TimerStore timerStore = getIt<TimerStore>();
 
     return GestureDetector(
-      onTap: (){
-        if (gameName == 'HQ Trivia'){
-          Navigator.of(context).pushNamed(Routes.quiz);
+      onTap: () async{
+        if (gameName == 'Quiz'){
+          await timerStore.connectWebSocket();
+          if (timerStore.isStarted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Can not join, game started"))
+            );
+          }
+          else {
+            if (timerStore.isLoading == false) {
+              Navigator.of(context).pushNamed(Routes.quiz);
+            }
+          }
         }
-        if (gameName == 'Trade'){
+        if (gameName == 'Shake'){
           Navigator.of(context).pushNamed(Routes.shake);
         }
       },
@@ -80,11 +93,11 @@ class EventTile extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      'Brand: $brandName',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
+                    // const SizedBox(height: 4.0),
+                    // Text(
+                    //   'Brand: $brandName',
+                    //   style: TextStyle(color: Colors.grey[600]),
+                    // ),
                     const SizedBox(height: 4.0),
                     Text(
                       'Vouchers: $voucherCount',
@@ -97,19 +110,33 @@ class EventTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4.0),
                     Text(
-                      'From: ${dateFormat.format(startTime)}',
+                      'Open: ${dateFormat.format(startTime)}',
                       style: TextStyle(color: Colors.grey[800]),
                     ),
                     Text(
-                      'To: ${dateFormat.format(endTime)}',
+                      'Close: ${dateFormat.format(endTime)}',
                       style: TextStyle(color: Colors.grey[800]),
                     ),
                   ],
                 ),
               ),
             ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: const Icon(Icons.favorite_border),
+                color: Colors.red,
+                onPressed: () {
+                  // TODO: Handle favorite button logic
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('$name added to favorites!')),
+                  );
+                },
+              ),
+            ),
           ],
         ),
+
       ),
     );
   }

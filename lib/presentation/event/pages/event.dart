@@ -36,6 +36,7 @@ class _EventPageState extends State<EventPage> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           final event = eventStore.events[index];
+          // if (event.endTime.isBefore(DateTime.now())) return const SizedBox.shrink();
           return EventTile(
               name: event.name,
               imageUrl: event.imgUrl?? "",

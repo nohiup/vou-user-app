@@ -14,7 +14,7 @@ class Value{
     //Generated
     Event(
       name: "Black Friday Sale",
-      gameName: "HQ Trivia",
+      gameName: "Quiz",
       imgUrl: "https://placehold.co/400x400/png",
       voucherCount: 50,
       startTime: DateTime(2024, 12, 1, 9, 0),
@@ -23,7 +23,7 @@ class Value{
     ),
     Event(
       name: "Christmas Special",
-      gameName: "HQ Trivia",
+      gameName: "Quiz",
       imgUrl: "https://placehold.co/400x400/png",
       voucherCount: 30,
       startTime: DateTime(2024, 12, 20, 10, 0),
@@ -32,7 +32,7 @@ class Value{
     ),
     Event(
       name: "New Year Bonanza",
-      gameName: "Trade",
+      gameName: "Shake",
       imgUrl: "https://placehold.co/400x400/png",
       voucherCount: 100,
       startTime: DateTime(2024, 12, 31, 18, 0),
@@ -41,7 +41,7 @@ class Value{
     ),
     Event(
       name: "Valentine's Day Offer",
-      gameName: "Trade",
+      gameName: "Shake",
       imgUrl: "https://placehold.co/400x400/png",
       voucherCount: 20,
       startTime: DateTime(2025, 2, 10, 8, 0),
@@ -50,7 +50,7 @@ class Value{
     ),
     Event(
       name: "Summer Festival",
-      gameName: "Trade",
+      gameName: "Shake",
       imgUrl: "https://placehold.co/400x400/png",
       voucherCount: 75,
       startTime: DateTime(2025, 6, 1, 12, 0),
@@ -151,4 +151,6 @@ class Value{
       status: "Expired",
     ),
   ];
+
+  static String baseUrl = "http://localhost:8080";
 }
